@@ -29,3 +29,30 @@ docker build -d -t servicename .
 ```
 docker run -d -p 5000:5000 servicename
 ```
+
+
+## test the service
+
+Test your service by running thought postman
+
+* Method : POST
+* URL : http://localhost:5000/predict
+* Body type: JSON
+
+sample payload:
+```angular2html
+{
+ "jobID" : "61ef72ed396fc5330c15f250",
+
+ "dataFileURL":
+
+     {
+
+       "url": "",
+
+       "json":""
+
+     },
+"datashopServerAddress": "http://34.129.168.181:8000"
+}
+```
