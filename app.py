@@ -8,22 +8,19 @@ import Datashop
 app = Flask(__name__)
 api = Api(app)
 
+
 class predict(Resource):
     @staticmethod
     def post():
         try:
-            start = time.time();
-            # Loads the body of the event.
+            start = time.time()
             input_dict = request.get_json()
-            os.environ["BACKEND_URL"] = input_dict["datashopServerAddress"]
-            inputdata = input_dict["dataFileURL"]
-            jobID = input_dict["jobID"]
 
-            # notify the Datashop application that job is in "Running" state
-            Datashop.updateJob(jobID,"running", None)
+            print(input_dict)
 
             # Phase 1:  download userinput data and save in "tmp" folder
-            Datashop.get_data(jobID, inputdata)
+            jobID , inputdata = Datashop.phase_1(input_dict)
+
 
             """
             call the service below  
@@ -33,7 +30,8 @@ class predict(Resource):
             service_results = service.run(jobID) # returns list of all the results
 
             # Phase 3:  save the results and update job status
-            insightsS3Link = Datashop.save_results("filename", service_results[0], datatype="int")  #specify the dtype of result (image,csv,graph,json,str,int)
+            insightsS3Link = Datashop.save_results("filename", service_results[0], datatype="str") #specify the dtype of result (image,csv,graph,json,str,int)
+
             duration = time.time() - start
             #Update job status
             insights_payload = Datashop.updateJob(jobID,insightsS3Link,duration) #insightsS3Link can be a list of links [insightsS3Link1 ,insightsS3Link2 , insightsS3Link3]
@@ -50,8 +48,6 @@ class predict(Resource):
             except Exception as e:
                 duration = time.time() - start;
                 return {"result": "update failed","duration": None, "insightFileURL":str(e)}
-
-
 
 api.add_resource(predict,'/predict')
 

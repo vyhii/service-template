@@ -29,9 +29,9 @@ def run(jobID):
   ## perform model inference
   result_1 = random.random()
 
-  print("model inference finished!",result_1 )
+  print("model inference finished!",result_1)
 
 
   ## for multiple results return list of resutls   results = [result_1,result_2,result_3]
 
-  return [result_1]
+  return [str(result_1), str(random.random()), str(random.random()),str(random.random())]

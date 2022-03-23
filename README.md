@@ -31,7 +31,7 @@ docker run -d -p 5000:5000 servicename
 ```
 
 
-## test the service
+## Test the service
 
 Test your service by running thought postman
 
