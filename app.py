@@ -36,7 +36,7 @@ class predict(Resource):
         except Exception as e:
             # updating job with FAILED status.
             try:
-                duration = time.time() -  start;
+                duration = time.time()-start;
                 Datashop.updateJob(jobID,None, duration , error= str(e))
                 return {"result": "failed","duration":duration, "insightFileURL":str(e)}
 

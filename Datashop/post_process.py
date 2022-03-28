@@ -27,16 +27,18 @@ def updateJob(jobID, insightsS3Link,duration, error=None):
 
     if (error):
         payload = json.dumps({
-            "insightFileURL": "N/A",
             "jobid": jobID,
-            "duration":duration
+            "insightFileURL": "N/A",
+            "duration": str(duration)
         })
     else:
         payload = json.dumps({
-            "insightFileURL": insightsS3Link,
             "jobid": jobID,
-            "duration": duration
+            "insightFileURL": str(insightsS3Link),
+            "duration": str(duration)
         })
+
+    print("display payload",payload)
 
     headers = {
         'Content-Type': 'application/json'
@@ -46,6 +48,7 @@ def updateJob(jobID, insightsS3Link,duration, error=None):
     status_map["status_code"] = response.status_code
 
     print("job updated : ",payload)
+    print("status : ",response.text)
     return payload
 
 
