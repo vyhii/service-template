@@ -12,24 +12,14 @@ class predict(Resource):
     @staticmethod
     def post():
         try:
-            start = time.time();
-            # Loads the body of the event.
+            start = time.time()
+
             input_dict = request.get_json()
-            os.environ["BACKEND_URL"] = input_dict["datashopServerAddress"]
-            inputdata = input_dict["dataFileURL"]
-            jobID = input_dict["jobID"]
 
-            # notify the Datashop application that job is in "Running" state
-            Datashop.updateJob(jobID,"running", None)
+            # phase 1 Datashop initialization
+            jobID = Datashop.initialize(input_dict)
 
-            # download userinput data and save in "tmp" folder
-            Datashop.get_data(jobID, inputdata)
-
-            """
-            call the service below  
-            follow service documentation for service output format
-            """
-
+            # phase 2 calling the service
             service_results = service.run(jobID) # returns list of all the results
 
             # save results
@@ -44,9 +34,9 @@ class predict(Resource):
             return {"result": "success","duration":duration,"insightFileURL":insights_payload}
                         
         except Exception as e:
-            #updating job with FAILED status.
+            # updating job with FAILED status.
             try:
-                duration = time.time() - start;
+                duration = time.time() -  start;
                 Datashop.updateJob(jobID,None, duration , error= str(e))
                 return {"result": "failed","duration":duration, "insightFileURL":str(e)}
 

@@ -31,7 +31,6 @@ def run(jobID):
 
   print("model inference finished!",result_1 )
 
-
   ## for multiple results return list of resutls   results = [result_1,result_2,result_3]
 
   return [result_1]
