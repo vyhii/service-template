@@ -1,8 +1,16 @@
 import numpy as np
 import io
 import random
+import tensorflow as tf
+import glob
+import os
+import cv2
+from model import model
+
+
 
 def run(jobID):
+  print("************************ \n\n excuting jobID:"+ str(jobID)+" \n\n\n")
   """
   title:: 
       run
@@ -23,15 +31,31 @@ def run(jobID):
     >  jobiD_image.png   "61ef72ed396fc5330c15f250_image.png"
   """
 
-  #default data path
-  datapath = "tmp/"
+  fileslist = glob.glob(os.getcwd()+"/tmp/"+jobID+"-image"+"*")
 
-  ## perform model inference
-  result_1 = random.random()
+  #load image as numpy array
+  img = cv2.imread(fileslist[0])
+  img = cv2.resize(img, (224, 224))
+  img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+  img = np.expand_dims(img, axis=0)
+  result  = model.predict(img)
 
-  print("model inference finished!",result_1)
 
 
-  ## for multiple results return list of resutls   results = [result_1,result_2,result_3]
+  if result[0][0] > 0.5:
+    result = {
+      "Autistic": "Positive",
+      "confidence":str(result[0][0])
+    }
 
-  return [str(result_1), str(random.random()), str(random.random()),str(random.random())]
+  else:
+    result = {
+      "Autistic": "Negative",
+      "confidence": str(result[0][0])
+    }
+  print("model inference finished!", str(result))
+
+  return [result]
+
+if __name__ == "__main__":
+  run("61ef72ed396fc5330c15f250")

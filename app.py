@@ -8,7 +8,6 @@ import Datashop
 app = Flask(__name__)
 api = Api(app)
 
-
 class predict(Resource):
     @staticmethod
     def post():
@@ -20,7 +19,6 @@ class predict(Resource):
 
             # Phase 1:  download userinput data and save in "tmp" folder
             jobID , inputdata = Datashop.phase_1(input_dict)
-
 
             """
             call the service below  
@@ -39,14 +37,14 @@ class predict(Resource):
             return {"result": "success","duration":duration,"insightFileURL":insights_payload}
                         
         except Exception as e:
+            print("Error",e)
             #updating job with FAILED status.
             try:
                 duration = time.time() - start;
-                Datashop.updateJob(jobID,None, duration , error= str(e))
+                Datashop.updateJob(jobID,None, duration ,error=str(e))
                 return {"result": "failed","duration":duration, "insightFileURL":str(e)}
 
             except Exception as e:
-                duration = time.time() - start;
                 return {"result": "update failed","duration": None, "insightFileURL":str(e)}
 
 api.add_resource(predict,'/predict')

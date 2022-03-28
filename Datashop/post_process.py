@@ -25,21 +25,28 @@ def updateJob(jobID, insightsS3Link,duration, error=None):
     status_map = {'status_code': '', 'json_response': ''}
     dataShopEndpointURL = os.environ.get('BACKEND_URL') + "/api/job/updateJob"
 
+    print("job update API : ", dataShopEndpointURL)
+
     if (error):
         payload = json.dumps({
             "insightFileURL": "N/A",
             "jobid": jobID,
+            "duration": duration
         })
     else:
         payload = json.dumps({
             "insightFileURL": insightsS3Link,
             "jobid": jobID,
+            "duration": duration
         })
+
+    print("payload : ", payload)
 
     headers = {
         'Content-Type': 'application/json'
     }
     response = requests.request("PUT", dataShopEndpointURL, headers=headers, data=payload)
+    print("update job response : ", response.text)
     status_map["json_response"] = json.dumps(response.text)
     status_map["status_code"] = response.status_code
 
