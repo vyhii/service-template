@@ -1,5 +1,4 @@
 import os
-
 import numpy as np
 import io
 import random
@@ -25,7 +24,6 @@ def run(jobID):
     >  jobiD_csv.csv   "61ef72ed396fc5330c15f250_csv.csv"
     >  jobiD_image.png   "61ef72ed396fc5330c15f250_image.png"
   """
-
   # load data as list from temp folder
 
   fileslist = glob.glob(os.getcwd() + "/tmp/" + jobID + "-image"+"*")
