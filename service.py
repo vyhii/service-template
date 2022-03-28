@@ -1,6 +1,9 @@
+import os
+
 import numpy as np
 import io
 import random
+import glob
 
 def run(jobID):
   """
@@ -23,8 +26,9 @@ def run(jobID):
     >  jobiD_image.png   "61ef72ed396fc5330c15f250_image.png"
   """
 
-  #default data path
-  datapath = "tmp/"
+  # load data as list from temp folder
+
+  fileslist = glob.glob(os.getcwd() + "/tmp/" + jobID + "-image"+"*")
 
   ## perform model inference
   result_1 = random.random()
