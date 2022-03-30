@@ -4,7 +4,7 @@ import io
 import random
 import glob
 import cv2
-from model import model
+#from model import model
 
 def run(jobID):
   """
@@ -30,29 +30,13 @@ def run(jobID):
 
   fileslist = glob.glob(os.getcwd() + "/tmp/" + jobID + "-image"+"*")
 
-  ## perform model inference
+  # perform model inference
 
-  img = cv2.imread(fileslist[0])
-  img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-  img = cv2.resize(img, (224, 224))
-  img = np.expand_dims(img, axis=0)
+  result = random.randint(0,100)
 
-  # run model
-  result = model.predict(img)
+  # for multiple results return list of resutls   results = [result_1,result_2,result_3]
 
-  if result[0][0] > 0.5:
-    result = {
-      "Autistic": "Positive",
-      "confidence": str(result[0][0] * 100)
-    }
+  ("inference finished with result: " + str(result))
 
-  else:
-    result = {
-      "Autistic": "Negative",
-      "confidence": str(result[0][1] * 100)
-    }
-  print("model inference finished!", str(result))
+  return [str(result)]
 
-  ## for multiple results return list of resutls   results = [result_1,result_2,result_3]
-
-  return [result]

@@ -1,9 +1,5 @@
 from flask import Flask, request, after_this_request
 from flask_restful import Resource, Api
-import service
-import os, shutil
-import time
-import Datashop
 from main import main
 
 app = Flask(__name__)
