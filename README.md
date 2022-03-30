@@ -17,11 +17,11 @@ Include necessary packages for your model in requirements.txt. We prefer you to 
 pip freeze > requirements.txt
 ```
 
+
 **RUN Command to build DOCKER image**
 
-
 ```
-docker build -d -t servicename .
+docker build -t servicename .
 ```
 
 **RUN Command to RUN DOCKER container**
@@ -29,10 +29,21 @@ docker build -d -t servicename .
 ```
 docker run -d -p 5000:5000 servicename
 ```
+**RUN Command to push DOCKER image**
 
+* Login to docker hub account
+* create a repository with the same name as your service.
+* use docker tag to tag your image with your repository.
+
+```angular2html
+docker tag servicename username/servicename:v1
+```
+* push your image to docker hub
+```angular2html
+docker push username/servicename:v1
+```
 
 ## Test the service
-
 Test your service by running thought postman
 
 * Method : POST

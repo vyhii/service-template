@@ -1,4 +1,7 @@
+flask-restful
+flask
+opencv-python
+tensorflow
+pillow
 numpy
 requests
-flask
-flask-restful

@@ -4,7 +4,6 @@ import zipfile
 import os
 
 
-
 def updateJob(jobID, insightsS3Link,duration, error=None):
     """
     title::
@@ -38,7 +37,6 @@ def updateJob(jobID, insightsS3Link,duration, error=None):
             "duration": str(duration)
         })
 
-    print("display payload",payload)
 
     headers = {
         'Content-Type': 'application/json'
