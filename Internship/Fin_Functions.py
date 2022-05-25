@@ -35,7 +35,7 @@ def getdata_kmeans(tickers,start,end):
     ind_data = pd.DataFrame()
     for t in tickers:
         ind_data[t] = pdr.DataReader(t,data_source='yahoo', start= start, end =end )['Adj Close']
-    print (ind_data.head())
+    #print (ind_data.head())
 
 
 #calculate the annual returns and variance
@@ -59,7 +59,8 @@ def getdata_kmeans(tickers,start,end):
 
 def plt_to_np(fig):
     with io.BytesIO() as buff:
-        fig.savefig(buff, format='png')
+        #fig.savefig(buff, format='png')
+        plt.savefig(buff, format='png')
         buff.seek(0)
         im =plt.imread(buff)
     return im
@@ -84,11 +85,8 @@ def elbow_method (data, random_state=99):
     plt.ylabel('Inertia or Sum Squared Error(SSE)')
     #plot = plt.savefig('Elbow_plot')
 
-    image = plt_to_np(plt)
-
-    plot = {
-        "elbow plot":image
-    }
+    plot = plt_to_np(f1)
+   
 
 #Get and Show the labels / groups
     kmeans = KMeans(n_clusters = 5).fit(X)
@@ -150,6 +148,7 @@ def plotall(data):
            loc='upper right')
 
     plot = plt.savefig('K-means Plot')
+    plot = plt_to_np(plot)
     return plot
 
 
@@ -177,7 +176,7 @@ def getdata_momentum(tickers,start,end):
     ind_data = pd.DataFrame()
     for t in tickers:
         ind_data[t] = pdr.DataReader(t,data_source='yahoo', start= start, end =end )['Adj Close']
-    print (ind_data.head())
+    #print (ind_data.head())
 
 #calculate the monthly returns and variance
     mtl_ret = ind_data.pct_change().resample('M').agg(lambda x:(x+1).prod()-1)
@@ -195,7 +194,7 @@ def getdata_momentum(tickers,start,end):
     """In this part we can see the returns during the study time period. """
 
     formation = reference_dict[len(reference_dict)-2]
-    print (formation)
+    
 
 #loop through reference_dict, match with formation
     for key in reference_dict.keys():
@@ -222,7 +221,7 @@ def get_quintiles(data, quintil):
   #group = pd.DataFrame()
   group = data[data.quintile==quintil]['index'].sort_values(ascending=False).tolist()[:5]
 
-  return print(group)
+  return group
 
 '''def portfopt (market):
 #With this function the user will decide between the two models available 'Kmeans', and  'Momentum'

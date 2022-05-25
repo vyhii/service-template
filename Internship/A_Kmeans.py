@@ -10,7 +10,7 @@ userinput = {
         "optimization": "Acceptable Positive Returns"
     }
 
-def main(market, start, end):
+def main(market, start, end, optimization):
     data = Fin_Functions.getdata_kmeans(market,start=start,end=end)
 
     #Run the model elbow method
@@ -31,8 +31,8 @@ def main(market, start, end):
 
     #Best Portfolio possible Options:
     #Really good Positive Returns','Medium Returns', 'Acceptable Positive Returns','Close to zero Returns','Negative Returns'
-    Result_kmeans =Fin_Functions.portfolios(data,leg=userinput["optimization"])
-    print(Result_kmeans)
+    Result_kmeans =Fin_Functions.portfolios(data,leg=optimization)
+    #print(Result_kmeans)
 
     outputs = {
 
@@ -44,7 +44,7 @@ def main(market, start, end):
 
      }
 
-    return outputs
+    return print(outputs)
 
 
 
@@ -52,11 +52,11 @@ def main(market, start, end):
 if __name__=='__main__':
     #Define the market 
     # Options 'DJI', 'S&P500' and 'ASX'
-    trial = Fin_Functions.assets (userinput["market"])
+    market = Fin_Functions.assets (userinput["market"])
     # Define the time to evaluate   
     start = userinput['start']
     end = userinput['end']
-    leg = userinput["optimization"]
+    optimization = userinput["optimization"]
     #this is the starting point
     #main is the app / service
 
@@ -67,6 +67,6 @@ if __name__=='__main__':
 
     
 
-    Result_kmeans = main(trial, start , end)
+    Result_kmeans = main(market, start , end, optimization)
 
 

@@ -1,9 +1,17 @@
 from pandas_datareader import Options
 import Fin_Functions
-import test2
+import A_Kmeans
+import B_Momentum
 import datetime as dt
 
-
+userinput = {
+        "start" : dt.datetime(2021,1,1),
+        "end" : dt.datetime(2022,4,4),
+        'Market': 'DJI'
+        "Model":'K-means',
+        'quintil or optimization': 'Medium Returns'
+        
+    }
 #Define the portfolio
 # The user can decided between 'Kmeans and Mommetum'
 tick = test2.portfopt('Momentum')
@@ -27,6 +35,39 @@ f = test2.total_opt (data)
 print(f[0])
 print(f[1])
 
+outputs = {
 
+         "Diversified Port " :  Diversified_portfolio ,
+         "optimization port": Result_kmeans,
+         "elbow plot":image1,
+         "K_means Plot": image2
+    
+
+     }
+
+    return print(outputs)
+
+
+
+
+if __name__=='__main__':
+    #Define the market 
+    # Options 'DJI', 'S&P500' and 'ASX'
+    market = Fin_Functions.assets (userinput["market"])
+    # Define the time to evaluate   
+    start = userinput['start']
+    end = userinput['end']
+    optimization = userinput["optimization"]
+    #this is the starting point
+    #main is the app / service
+
+  
+
+   
+
+
+    
+
+    Result_kmeans = main(market, start , end, optimization)
 
 

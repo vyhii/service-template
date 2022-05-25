@@ -9,19 +9,20 @@ import datetime as dt
 from sklearn.cluster import KMeans
 from functools import reduce
 from dateutil.relativedelta import relativedelta
-from A_Kmeans import Result_kmeans
-from B_Momentum import Result_momentum
+from A_Kmeans import main as A_kmeanslist
+from B_Momentum import main as B_Momentum
 plt.style.use('fivethirtyeight')
 
 
 
 
-def portfopt (market):
+def portfopt (model):
 #With this function the user will decide between the two models available 'Kmeans', and  'Momentum'
-    if market == 'Kmeans':
-        assests_list = Result_kmeans 
-    elif market == 'Momentum':
-        assests_list = Result_momentum
+    if model == 'Kmeans':
+        A_kmeanslist(market, start , end, optimization))
+        assests_list = A_kmeanslist
+    elif model == 'Momentum':
+        assests_list = B_Momentum
     return assests_list
 
 def getdata_opt_port(tickers,start,end):
@@ -30,7 +31,7 @@ def getdata_opt_port(tickers,start,end):
     ind_data = pd.DataFrame()
     for t in tickers:
         ind_data[t] = pdr.DataReader(t,data_source='yahoo', start= start, end =end )['Adj Close']
-    print (ind_data.head())
+    
     #ind_data.to_csv('sample6.csv')
     return ind_data 
 
@@ -143,10 +144,10 @@ def total_opt(data):
     #return cov_matrix
 
 
-if __name__ == '__main__':
-    tickers = Result_momentum
+'''if __name__ == '__main__':
+    tickers = ['AXP', 'AAPL', 'CVX', 'HD', 'MSFT', 'UNH']
     
-    result = portfopt(tickers)
+    result = portfopt(tickers)'''
 
 
 if __name__=='__main__':
