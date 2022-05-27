@@ -5,7 +5,6 @@ import uvicorn
 
 paraphraser = paraphrasingModule.PegasusParaphraser()
 
-# User's input text is sent as a request body. The structure of this body can be defined by extending Pydantic's BaseModel
 class Paragraph(BaseModel):
     paragraph: str
 
