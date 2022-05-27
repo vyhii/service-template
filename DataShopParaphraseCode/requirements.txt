@@ -1,0 +1,8 @@
+fastapi
+nltk
+sentence-splitter
+sentencepiece
+termcolor
+torch
+transformers
+uvicorn
